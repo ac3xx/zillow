@@ -293,7 +293,11 @@ class ZillowClient
         // If request was succesful then parse the result
         if ($this->isSuccessful()) {
             if ($this->response['response'] && isset($this->response['response']['results']) && count($this->response['response']['results'])) {
-                foreach ($this->response['response']['results'] as $result) {
+                $results = $this->response['response']['results'];
+                if (isset($results['result'])) {
+                    $results = $results['result'];
+                }
+                foreach ($results as $result) {
                     $this->results[$result['zpid']] = $result;
                 }
             }
